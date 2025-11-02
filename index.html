@@ -9,6 +9,7 @@
     </head>
     <body>
         <div class="calculator">
+            <div class="expression-screen" id="expressionDisplay" aria-hidden="true"></div>
             <div class="display-screen" id="displayScreen" role="status" aria-live="polite" aria-atomic="true">0</div>
             <div class="buttons-dev">
                 <button class="button" data-action="clear">C</button>
@@ -42,6 +43,7 @@
                     <option value="basic">basic</option>
                     <option value="advanced">advanced</option>
                 </select>
+                <div id="historyPanel" class="history-panel" aria-hidden="true"></div>
             </div>
         </div>
 

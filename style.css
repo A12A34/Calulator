@@ -10,26 +10,39 @@ body{
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
     display: flex;
     min-height: 100vh;
-    overflow: hidden;
 }
 .display-screen{
     width: 100%;
-    height: 100px;
-    background: rgba(255,255,255,0.18);
+    min-height: 80px;
+    background: rgba(255,255,255,0.2);
     -webkit-backdrop-filter: blur(10px) saturate(160%);
     backdrop-filter: blur(10px) saturate(160%);
-    border-radius: 30px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.3);
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.4);
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
-    font-family: 'Arial', sans-serif;
-    font-size: 24px;
-    color: black;
+    font-family: 'Courier New', monospace;
+    font-size: 32px;
+    font-weight: 600;
+    color: #1a1a1a;
     padding: 20px;
     box-sizing: border-box;
     text-align: right;
     overflow-wrap: break-word;
+    word-break: break-all;
+}
+.expression-screen{
+    width: 100%;
+    font-size: 15px;
+    color: rgba(255,255,255,0.75);
+    font-family: 'Courier New', monospace;
+    text-align: right;
+    padding: 8px 10px;
+    min-height: 24px;
+    box-sizing: border-box;
+    opacity: 0.95;
+    letter-spacing: 0.5px;
 }
 .display-screen p{
     margin: 0;
@@ -49,7 +62,7 @@ body{
     border-radius: 20px;
     border: 1px solid rgba(255,255,255,0.25);
     box-shadow: 0 20px 50px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.25);
-    width: min(400px, 90%);
+    width: min(420px, 95vw);
 }
 
 .buttons-dev{
@@ -57,40 +70,47 @@ body{
     grid-template-columns: repeat(4, 1fr);
     gap: 15px;
     width: 100%;
-
 }
+        
 button{
-    width: 80px;
-    height: 80px;
-    font-size: 24px;
-    border: 1px solid #555;
-    border-radius: 100%;
-    background-color: #333;
+    width: 100%;
+    height: 70px;
+    font-size: 20px;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 50%;
+    background: rgba(51,51,51,0.6);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
     color: white;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.1s;
+    transition: all 0.3s ease;
 }
 select{
     width: 100%;
-    height: 100px;
-    font-size: 18px;
-    border: 1px solid #555;
-    border-radius: 100%;
-    background-color: #333;
+    height: 50px;
+    font-size: 16px;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 25px;
+    background: rgba(51,51,51,0.6);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
     color: white;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.1s;
+    transition: all 0.3s ease;
     grid-column: span 4;
     text-align: center;
+    padding: 0 15px;
 }
 button:hover, select:hover{
-    background-color: #555;
+    background: rgba(85,85,85,0.7);
     transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.4);
 }
 button:active, select:active{
     transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
 .mode-group{
     grid-column: span 2;
@@ -106,13 +126,25 @@ button[data-action="divide"],
 button[data-action="multiply"],
 button[data-action="subtract"],
 button[data-action="add"]{
-    background-color: #ff9500;
+    background: linear-gradient(135deg, rgba(255,149,0,0.8), rgba(255,120,0,0.8));
+    font-weight: bold;
+}
+button[data-action="divide"]:hover,
+button[data-action="multiply"]:hover,
+button[data-action="subtract"]:hover,
+button[data-action="add"]:hover{
+    background: linear-gradient(135deg, rgba(255,149,0,0.95), rgba(255,120,0,0.95));
 }
 
 /* Equals button prominent */
 .equal-sign{
-    background-color: #34c759;
+    background: linear-gradient(135deg, rgba(52,199,89,0.8), rgba(40,180,70,0.8));
     grid-column: span 2;
+    font-weight: bold;
+    font-size: 24px;
+}
+.equal-sign:hover{
+    background: linear-gradient(135deg, rgba(52,199,89,0.95), rgba(40,180,70,0.95));
 }
 
 /* Utility buttons styling tweaks */
@@ -128,8 +160,73 @@ button[data-action="e"],
 button[data-action="mem-clear"],
 button[data-action="mem-recall"],
 button[data-action="mem-plus"],
-button[data-action="mem-minus"]{
-    background-color: #444;
+button[data-action="mem-minus"],
+button[data-action="clear-entry"],
+button[data-action="paren-open"],
+button[data-action="paren-close"],
+button[data-action="power"],
+button[data-action="sin"],
+button[data-action="cos"],
+button[data-action="tan"],
+button[data-action="ln"],
+button[data-action="log"],
+button[data-action="copy"],
+button[data-action="history"],
+button[data-action="deg-toggle"]{
+    background: rgba(68,68,68,0.7);
+}
+button[data-action="clear"]{
+    background: rgba(220,60,50,0.7);
+    font-weight: bold;
+}
+button[data-action="clear"]:hover{
+    background: rgba(220,60,50,0.85);
+}
+
+.history-panel{
+    grid-column: span 4;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    margin-top: 8px;
+    background: rgba(0,0,0,0.3);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    color: white;
+    padding: 10px;
+    border-radius: 12px;
+    font-size: 13px;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+.history-item{
+    padding: 8px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 4px;
+    transition: background 0.2s ease;
+}
+.history-item:hover{ 
+    background: rgba(255,255,255,0.08); 
+}
+.history-panel::-webkit-scrollbar{
+    width: 6px;
+}
+.history-panel::-webkit-scrollbar-track{
+    background: rgba(255,255,255,0.05);
+    border-radius: 3px;
+}
+.history-panel::-webkit-scrollbar-thumb{
+    background: rgba(255,255,255,0.2);
+    border-radius: 3px;
+}
+.history-panel::-webkit-scrollbar-thumb:hover{
+    background: rgba(255,255,255,0.3);
+}
+
+.button.active{
+    box-shadow: 0 6px 20px rgba(52,199,89,0.4), inset 0 1px 2px rgba(255,255,255,0.3);
+    background: linear-gradient(135deg, rgba(52,199,89,0.85), rgba(40,180,70,0.85));
+    border-color: rgba(52,199,89,0.5);
 }
 
 button:focus-visible, select:focus-visible{
@@ -139,9 +236,15 @@ button:focus-visible, select:focus-visible{
 
 @media (max-width: 380px){
     button{
-        width: 64px;
-        height: 64px;
-        font-size: 20px;
+        height: 60px;
+        font-size: 18px;
+    }
+    .calculator{
+        width: 95vw;
+        padding: 15px;
+    }
+    .buttons-dev{
+        gap: 10px;
     }
 }
 
